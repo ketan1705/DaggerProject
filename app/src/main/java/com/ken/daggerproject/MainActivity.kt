@@ -19,15 +19,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val component =
-//            DaggerUserRegistrationComponent.factory().create(3)
+        val appComponent = (application as UserApplication).appComponent
+        /*val userComponent =
+            DaggerUserRegistrationComponent.factory()
+                .create(3, appComponent)*/
+
+        // when we use factory
+        /*val userComponent =
+            appComponent.getUserRegistrationComponentFactory()
+                .create(3)
+        */
+
+        // when we use builder
+        val userComponent =
+            appComponent.getUserRegistrationComponentBuilder()
+                .retryCount(3).build()
+
 //                .notificationServiceModule(NotificationServiceModule(3))
 //                .build()
 
+//
 
-        val component = (application as UserApplication).userRegistrationComponent
-
-        component.inject(this@MainActivity)
+        userComponent.inject(this@MainActivity)
         userRegistrationService.registerUser(
             "test@gmail.com", "test@123"
         )
