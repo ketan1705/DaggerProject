@@ -8,11 +8,13 @@ interface UserRegistrationComponent {
 //    fun getUserRegistrationService(): UserRegistrationService
 //    fun getEmailService(): EmailService
 
+
     fun inject(mainActivity: MainActivity)
+    fun emailService(): EmailService
 
     @Component.Factory
-    interface Factory{
-        fun create(@BindsInstance retryCount:Int): UserRegistrationComponent
+    interface Factory {
+        fun create(@BindsInstance retryCount: Int): UserRegistrationComponent
     }
 
 
