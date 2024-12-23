@@ -3,6 +3,7 @@ package com.ken.daggerproject
 import dagger.BindsInstance
 import dagger.Component
 
+@ApplicationScope
 @Component(modules = [UserRepositoryModule::class, NotificationServiceModule::class])
 interface UserRegistrationComponent {
 //    fun getUserRegistrationService(): UserRegistrationService
@@ -10,7 +11,7 @@ interface UserRegistrationComponent {
 
 
     fun inject(mainActivity: MainActivity)
-    fun emailService(): EmailService
+//    fun emailService(): EmailService
 
     @Component.Factory
     interface Factory {
