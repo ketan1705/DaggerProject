@@ -2,15 +2,27 @@ package com.ken.daggerproject
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var userRegistrationService: UserRegistrationService
+
+    @Inject
+    lateinit var emailService: EmailService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+ 
+        val component =
+            DaggerUserRegistrationComponent.factory().create(3)
+//                .notificationServiceModule(NotificationServiceModule(3))
+//                .build()
 
-        val userRegistrationComponent = DaggerUserRegistrationComponent.builder()
-            .build().getUserRegistrationService()
-        userRegistrationComponent.registerUser("test@gmail.com", "test@123")
+        component.inject(this@MainActivity)
+        userRegistrationService.registerUser("test@gmail.com", "test@123")
 
     }
 }

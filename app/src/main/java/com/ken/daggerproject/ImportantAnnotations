@@ -1,2 +1,9 @@
 @Component
 @Inject
+@Module
+@Provides
+@Binds
+Qualifiers -> @Named
+@Component.Factory
+@BindsInstance
+@Singleton
