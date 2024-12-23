@@ -1,21 +1,51 @@
 package com.ken.daggerproject
 
 import dagger.BindsInstance
-import dagger.Component
+import dagger.Subcomponent
 
-@ApplicationScope
-@Component(modules = [UserRepositoryModule::class, NotificationServiceModule::class])
+@ActivityScope
+@Subcomponent(
+    modules = [UserRepositoryModule::class, NotificationServiceModule::class]
+)
+// @Component(
+//    dependencies = [AppComponent::class],
+//    modules = [UserRepositoryModule::class, NotificationServiceModule::class]
+//)
 interface UserRegistrationComponent {
 //    fun getUserRegistrationService(): UserRegistrationService
 //    fun getEmailService(): EmailService
 
 
     fun inject(mainActivity: MainActivity)
-//    fun emailService(): EmailService
 
-    @Component.Factory
+    // component
+    /*      @Component.Factory
+      interface Factory {
+          fun create(
+              @BindsInstance retryCount: Int,
+              appComponent: AppComponent
+          ): UserRegistrationComponent
+      }
+  */
+
+    // using subcomponent
+
+  /*  @Subcomponent.Factory
     interface Factory {
-        fun create(@BindsInstance retryCount: Int): UserRegistrationComponent
+        fun create(
+            @BindsInstance retryCount: Int
+        ): UserRegistrationComponent
+    }*/
+
+
+    // Builder patter use
+
+    @Subcomponent.Builder
+    interface Builder {
+        // this build function is necessary when we use Builder
+        fun build(): UserRegistrationComponent
+
+        fun retryCount(@BindsInstance retryCount: Int): Builder
     }
 
 
